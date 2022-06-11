@@ -3,4 +3,6 @@
     <string name="app_name">Prueba de Ingreso</string>
     <string name="search_user">Buscar Usuario</string>
     <string name="see_publications">Ver Publicaciones</string>
+    <string name="loading">Cargando</string>
+    <string name="please_wait">Por favor espere...</string>
 </resources>
