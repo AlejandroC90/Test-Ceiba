@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Prueba Ceiba</string>
+    <string name="app_name">Admission Test</string>
+    <string name="search_user">Search User</string>
+    <string name="see_publications">See Publications</string>
 </resources>
