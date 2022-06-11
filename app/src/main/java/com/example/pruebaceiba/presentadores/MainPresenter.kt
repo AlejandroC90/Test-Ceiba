@@ -1,5 +1,6 @@
 package com.example.pruebaceiba.presentadores
 
+import android.content.Context
 import com.example.pruebaceiba.contratos.InterfazContratos
 import com.example.pruebaceiba.modelos.MainModel
 
@@ -9,14 +10,16 @@ class MainPresenter(_vista: InterfazContratos.Vista) : InterfazContratos.Present
 
     init {
         vista.inicializar()
-        traerInformacion()
+        //traerInformacion()
     }
 
     override fun cargarUsuarios() {
 
     }
 
-    override fun traerInformacion() {
+    override fun consultarUsuarios(context: Context) {
         vista.mostrarCargando(model.traerDatos())
+        model.traerUsuarios(context)
+        vista.ocultarCargando()
     }
 }

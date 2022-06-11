@@ -1,5 +1,7 @@
 package com.example.pruebaceiba.contratos
 
+import android.content.Context
+
 interface InterfazContratos {
 
     interface Vista {
@@ -10,11 +12,11 @@ interface InterfazContratos {
 
     interface Presentador {
         fun cargarUsuarios()
-        fun traerInformacion()
+        fun consultarUsuarios(context: Context)
     }
 
     interface Modelo {
-        fun traerUsuarios()
+        fun traerUsuarios(context: Context)
         fun traerDatos(): String
     }
 }

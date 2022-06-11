@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), InterfazContratos.Vista {
     override fun inicializar() {
         boton = findViewById(R.id.boton_presioname)
         boton.setOnClickListener{
-            presentador?.traerInformacion()
+            presentador?.consultarUsuarios(this)
         }
         val builder = AlertDialog.Builder(this)
         builder.setCancelable(true)
