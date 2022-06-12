@@ -3,15 +3,20 @@ package com.example.pruebaceiba
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pruebaceiba.contratos.InterfazContratos
 import com.example.pruebaceiba.data.DTOUsuario
 import com.example.pruebaceiba.presentadores.MainPresenter
 import com.example.pruebaceiba.ui.AdapterUsuarios
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 class MainActivity : AppCompatActivity(), InterfazContratos.Vista {
@@ -19,23 +24,25 @@ class MainActivity : AppCompatActivity(), InterfazContratos.Vista {
     lateinit var boton: Button
     var presentador: MainPresenter? = null
     lateinit var recyclearViewUsuarios: RecyclerView
-    lateinit var busqueda: TextInputLayout
+    lateinit var busqueda: TextInputEditText
+    lateinit var emptyList: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //inicializamos el presentador
-        presentador = MainPresenter(this)
+        inicializar()
+        presentador = MainPresenter(this, this)
     }
 
     /**
      * funcion que inicializa la interfaz de la aplicacion
      */
-    override fun inicializar() {
+    fun inicializar() {
         //boton para busqueda de usuarios
         boton = findViewById(R.id.boton_presioname)
-        boton.setOnClickListener{
+        boton.setOnClickListener {
             presentador?.consultarUsuarios(this)
         }
 
@@ -50,6 +57,22 @@ class MainActivity : AppCompatActivity(), InterfazContratos.Vista {
         recyclearViewUsuarios.layoutManager = LinearLayoutManager(this)
 
         //busqueda
+        busqueda = findViewById(R.id.input_edit_text)
+        busqueda.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                //aqui se maneja la busqueda de usuarios en la pantalla principal
+                presentador?.filtrarUsuarios(p0.toString())
+            }
+
+        })
+
+        emptyList = findViewById(R.id.empty_textview)
 
     }
 
@@ -66,7 +89,15 @@ class MainActivity : AppCompatActivity(), InterfazContratos.Vista {
      * muestra
      */
     override fun mostrarUsuarios(usuarios: ArrayList<DTOUsuario>) {
+        if(recyclearViewUsuarios.visibility.equals(View.INVISIBLE)){
+            recyclearViewUsuarios.visibility = View.VISIBLE
+            emptyList.visibility = View.INVISIBLE
+        }
         recyclearViewUsuarios.adapter = AdapterUsuarios(usuarios)
     }
 
+    override fun mostrarVacio() {
+        recyclearViewUsuarios.visibility = View.INVISIBLE
+        emptyList.visibility = View.VISIBLE
+    }
 }

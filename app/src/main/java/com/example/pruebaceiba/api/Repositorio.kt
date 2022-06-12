@@ -16,14 +16,15 @@ import com.example.pruebaceiba.data.DTOUsuario
 class Repositorio {
     final val URL_BASE = "https://jsonplaceholder.typicode.com/"
     final val URL_USUARIOS = URL_BASE + "users"
-    final val URL_POST_USUARIOS = URL_BASE + "posts?userId="//se le agrega el user id como param de consulta
+    final val URL_POST_USUARIOS =
+        URL_BASE + "posts?userId="//se le agrega el user id como param de consulta
 
+    val arregloUsuarios = ArrayList<DTOUsuario>()
 
-    fun listarUsuarios(context: Context, callback: CallBackVolleyUsuarios){
+    fun listarUsuarios(context: Context, callback: CallBackVolleyUsuarios) {
         val request = JsonArrayRequest(
             Request.Method.GET, URL_USUARIOS, null,
             { response ->
-                val arregloUsuarios = ArrayList<DTOUsuario>()
                 for (i in 0 until response.length()) {
                     val usuario = DTOUsuario()
                     val objeto = response.getJSONObject(i)
@@ -42,7 +43,17 @@ class Repositorio {
         addtoLista(request, context)
     }
 
-    fun listarPostsPorUsuario(context: Context, idUsuario: Int){
+    /**
+     * Permite busca un usuario usando el nombre, ignora mayusculas o minusculas
+     */
+    fun buscarUsuario(nombre: String): ArrayList<DTOUsuario> {
+        var filtrados = arregloUsuarios.filter { dtoUsuario ->
+            dtoUsuario.nombre?.contains(nombre, ignoreCase = true) ?: false
+        } as ArrayList<DTOUsuario> /* = java.util.ArrayList<com.example.pruebaceiba.data.DTOUsuario> */
+        return filtrados;
+    }
+
+    fun listarPostsPorUsuario(context: Context, idUsuario: Int) {
         val request = JsonArrayRequest(
             Request.Method.GET, URL_POST_USUARIOS + idUsuario.toString(), null,
             { response ->
@@ -62,7 +73,7 @@ class Repositorio {
         addtoLista(request, context)
     }
 
-    fun addtoLista(stringRequest: JsonArrayRequest, context: Context){
+    fun addtoLista(stringRequest: JsonArrayRequest, context: Context) {
         VolleySingleton.getInstance(context).addToRequestQueue(stringRequest)
 
     }

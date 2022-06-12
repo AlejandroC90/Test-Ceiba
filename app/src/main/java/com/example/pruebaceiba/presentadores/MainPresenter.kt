@@ -6,13 +6,12 @@ import com.example.pruebaceiba.contratos.InterfazContratos
 import com.example.pruebaceiba.data.DTOUsuario
 import com.example.pruebaceiba.modelos.MainModel
 
-class MainPresenter(_vista: InterfazContratos.Vista) : InterfazContratos.Presentador {
+class MainPresenter(_vista: InterfazContratos.Vista, context: Context) : InterfazContratos.Presentador {
     private var vista = _vista
     private var model: MainModel = MainModel()
 
     init {
-        vista.inicializar()
-        //traerInformacion()
+        consultarUsuarios(context)
     }
 
 
@@ -32,10 +31,15 @@ class MainPresenter(_vista: InterfazContratos.Vista) : InterfazContratos.Present
     }
 
     override fun consultarPostPorUsuario(context: Context) {
-        TODO("Not yet implemented")
     }
 
-    override fun filtrarUsuarios() {
-        TODO("Not yet implemented")
+    override fun filtrarUsuarios(nombre: String) {
+        var listado = model.buscarUsuario(nombre)
+        if(listado.isEmpty()){
+            vista.mostrarVacio()
+        }else{
+            vista.mostrarUsuarios(listado)
+
+        }
     }
 }

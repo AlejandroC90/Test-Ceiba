@@ -10,20 +10,21 @@ import com.example.pruebaceiba.data.DTOUsuario
 interface InterfazContratos {
 
     interface Vista {
-        fun inicializar()
         fun mostrarCargando()
         fun ocultarCargando()
         fun mostrarUsuarios(usuarios: ArrayList<DTOUsuario>)
+        fun mostrarVacio()
     }
 
     interface Presentador {
         fun consultarUsuarios(context: Context)
         fun consultarPostPorUsuario(context: Context)
-        fun filtrarUsuarios()
+        fun filtrarUsuarios(nombre: String)
     }
 
     interface Modelo {
         fun traerUsuarios(context: Context, callback: CallBackVolleyUsuarios)
+        fun buscarUsuario(nombre: String):ArrayList<DTOUsuario>
         fun traerPostPorUsuario(context: Context, callback: CallBackVolleyUsuarios, idUsuario: Int)
     }
 }

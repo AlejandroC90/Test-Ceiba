@@ -4,5 +4,5 @@
     <string name="see_publications">See Publications</string>
     <string name="loading">Loading</string>
     <string name="please_wait">Please Wait...</string>
-
+    <string name="empty_list">List is empty</string>
 </resources>
