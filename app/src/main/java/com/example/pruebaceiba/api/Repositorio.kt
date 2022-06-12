@@ -9,14 +9,17 @@ import com.android.volley.toolbox.StringRequest
 import com.example.pruebaceiba.data.DTOPost
 import com.example.pruebaceiba.data.DTOUsuario
 
+/**
+ * Clase de repositorio que permite la carga de los datos de internet o
+ * base de datos local
+ */
 class Repositorio {
     final val URL_BASE = "https://jsonplaceholder.typicode.com/"
     final val URL_USUARIOS = URL_BASE + "users"
     final val URL_POST_USUARIOS = URL_BASE + "posts?userId="//se le agrega el user id como param de consulta
 
 
-    fun listarUsuarios(context: Context){
-        // Formulate the request and handle the response.
+    fun listarUsuarios(context: Context, callback: CallBackVolleyUsuarios){
         val request = JsonArrayRequest(
             Request.Method.GET, URL_USUARIOS, null,
             { response ->
@@ -31,15 +34,15 @@ class Repositorio {
                     usuario.telefono = objeto.getString("phone")
                     arregloUsuarios.add(usuario)
                 }
+                callback.onSuccess(arregloUsuarios)
             },
             { error ->
-
+                callback.onError()
             })
         addtoLista(request, context)
     }
 
     fun listarPostsPorUsuario(context: Context, idUsuario: Int){
-        // Formulate the request and handle the response.
         val request = JsonArrayRequest(
             Request.Method.GET, URL_POST_USUARIOS + idUsuario.toString(), null,
             { response ->

@@ -5,7 +5,9 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.android.volley.Request;
 
-
+/**
+ * Singleton para las peticiones usando Volley
+ */
 class VolleySingleton constructor(context: Context) {
     companion object {
         @Volatile
