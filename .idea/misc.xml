@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.19427083333333334" />
+        <entry key="app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.334" />
+        <entry key="app/src/main/res/drawable/ic_baseline_local_phone_24.xml" value="0.353" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.353" />
+        <entry key="app/src/main/res/layout/activity_listado_posts.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.375" />
         <entry key="app/src/main/res/layout/dialog_cargando.xml" value="0.37395833333333334" />
         <entry key="app/src/main/res/layout/post_card.xml" value="0.37395833333333334" />

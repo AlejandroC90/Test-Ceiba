@@ -1,5 +1,6 @@
 package com.example.pruebaceiba.api
 
+import com.example.pruebaceiba.data.DTOPost
 import com.example.pruebaceiba.data.DTOUsuario
 
 /**
@@ -11,5 +12,5 @@ interface CallBackVolleyUsuarios {
 }
 
 interface CallBackVolleyPostsPorUsuario{
-    fun onSuccessPost(usuarios: ArrayList<DTOUsuario>)
+    fun onSuccessPost(posts: ArrayList<DTOPost>)
 }

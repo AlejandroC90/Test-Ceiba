@@ -1,6 +1,7 @@
 package com.example.pruebaceiba
 
 import android.app.AlertDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -13,11 +14,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pruebaceiba.contratos.InterfazContratos
+import com.example.pruebaceiba.data.DTOPost
 import com.example.pruebaceiba.data.DTOUsuario
 import com.example.pruebaceiba.presentadores.MainPresenter
 import com.example.pruebaceiba.ui.AdapterUsuarios
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.io.Serializable
 
 class MainActivity : AppCompatActivity(), InterfazContratos.Vista {
     lateinit var dialog: AlertDialog
@@ -31,8 +34,9 @@ class MainActivity : AppCompatActivity(), InterfazContratos.Vista {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //inicializamos el presentador
         inicializar()
+        //inicializamos el presentador
+
         presentador = MainPresenter(this, this)
     }
 
@@ -93,11 +97,24 @@ class MainActivity : AppCompatActivity(), InterfazContratos.Vista {
             recyclearViewUsuarios.visibility = View.VISIBLE
             emptyList.visibility = View.INVISIBLE
         }
-        recyclearViewUsuarios.adapter = AdapterUsuarios(usuarios)
+        recyclearViewUsuarios.adapter = AdapterUsuarios(usuarios) { it: DTOUsuario ->
+            presentador?.consultarPostPorUsuario(this, it)
+        }
     }
 
     override fun mostrarVacio() {
         recyclearViewUsuarios.visibility = View.INVISIBLE
         emptyList.visibility = View.VISIBLE
+    }
+
+    /**
+     * Despues de realiza el cargado de los post posts por usuario se envia a una nueva pantalla
+     */
+    override fun mostrarPosts(usuario: DTOUsuario, posts: ArrayList<DTOPost>) {
+        val bundle:Bundle= Bundle().apply {
+            putSerializable("usuario",usuario?:"")
+            putSerializable("posts", posts as Serializable)
+        }
+        startActivity(Intent(this,ListadoPosts::class.java).putExtras(bundle))
     }
 }

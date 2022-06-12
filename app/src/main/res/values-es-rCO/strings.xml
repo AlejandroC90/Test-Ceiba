@@ -6,5 +6,6 @@
     <string name="loading">Cargando</string>
     <string name="please_wait">Por favor espere...</string>
     <string name="empty_list">La lista está vacía</string>
+    <string name="posts">Publicaciones:</string>
 
 </resources>

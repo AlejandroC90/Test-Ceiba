@@ -1,6 +1,7 @@
 package com.example.pruebaceiba.modelos
 
 import android.content.Context
+import com.example.pruebaceiba.api.CallBackVolleyPostsPorUsuario
 import com.example.pruebaceiba.api.CallBackVolleyUsuarios
 import com.example.pruebaceiba.api.Repositorio
 import com.example.pruebaceiba.contratos.InterfazContratos
@@ -23,8 +24,12 @@ class MainModel(): InterfazContratos.Modelo {
         return repositorio.buscarUsuario(nombre)
     }
 
-    override fun traerPostPorUsuario(context: Context, callback: CallBackVolleyUsuarios, idUsuario: Int) {
-        repositorio.listarPostsPorUsuario(context, idUsuario)
+    override fun traerPostPorUsuario(
+        context: Context,
+        callback: CallBackVolleyPostsPorUsuario,
+        usuario: DTOUsuario
+    ) {
+        repositorio.listarPostsPorUsuario(context,callback, usuario)
     }
 
 }

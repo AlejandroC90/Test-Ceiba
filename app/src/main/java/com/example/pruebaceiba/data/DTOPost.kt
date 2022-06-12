@@ -1,6 +1,8 @@
 package com.example.pruebaceiba.data
 
-class DTOPost {
+import java.io.Serializable
+
+class DTOPost : Serializable {
     var titulo: String? = null
     var cuerpo: String? = null
 }

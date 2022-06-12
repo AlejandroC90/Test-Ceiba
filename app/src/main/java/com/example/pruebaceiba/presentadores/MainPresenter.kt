@@ -1,8 +1,10 @@
 package com.example.pruebaceiba.presentadores
 
 import android.content.Context
+import com.example.pruebaceiba.api.CallBackVolleyPostsPorUsuario
 import com.example.pruebaceiba.api.CallBackVolleyUsuarios
 import com.example.pruebaceiba.contratos.InterfazContratos
+import com.example.pruebaceiba.data.DTOPost
 import com.example.pruebaceiba.data.DTOUsuario
 import com.example.pruebaceiba.modelos.MainModel
 
@@ -30,7 +32,16 @@ class MainPresenter(_vista: InterfazContratos.Vista, context: Context) : Interfa
         vista.ocultarCargando()
     }
 
-    override fun consultarPostPorUsuario(context: Context) {
+    override fun consultarPostPorUsuario(context: Context, usuario: DTOUsuario) {
+        println("presionaron boton en el listado ${usuario.id}")
+        vista.mostrarCargando()
+        model.traerPostPorUsuario(context, object : CallBackVolleyPostsPorUsuario {
+            override fun onSuccessPost( posts: ArrayList<DTOPost>) {
+                //se muestra la interfaz con los datos de los posts de un usuario
+                vista.mostrarPosts(usuario, posts)
+            }
+        }, usuario)
+        vista.ocultarCargando()
     }
 
     override fun filtrarUsuarios(nombre: String) {
