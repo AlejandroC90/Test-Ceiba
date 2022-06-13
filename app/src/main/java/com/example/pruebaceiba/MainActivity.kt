@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), InterfazContratos.Vista {
 
         //inicializacion de Alert Dialog para mostrar el cargando o no
         val builder = AlertDialog.Builder(this)
-        builder.setCancelable(true)
+        builder.setCancelable(false)
         builder.setView(R.layout.dialog_cargando)
         dialog = builder.create()
 

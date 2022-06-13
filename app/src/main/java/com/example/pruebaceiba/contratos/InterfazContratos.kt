@@ -26,8 +26,8 @@ interface InterfazContratos {
     }
 
     interface Modelo {
-        fun traerUsuarios(context: Context, callback: CallBackVolleyUsuarios)
+        suspend fun traerUsuarios(context: Context, callback: CallBackVolleyUsuarios)
         fun buscarUsuario(nombre: String):ArrayList<DTOUsuario>
-        fun traerPostPorUsuario(context: Context, callback: CallBackVolleyPostsPorUsuario, usuario: DTOUsuario)
+        suspend fun traerPostPorUsuario(context: Context, callback: CallBackVolleyPostsPorUsuario, usuario: DTOUsuario)
     }
 }
