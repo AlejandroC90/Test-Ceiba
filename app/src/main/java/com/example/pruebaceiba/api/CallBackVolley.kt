@@ -13,4 +13,5 @@ interface CallBackVolleyUsuarios {
 
 interface CallBackVolleyPostsPorUsuario{
     fun onSuccessPost(posts: ArrayList<DTOPost>)
+    fun onError()
 }

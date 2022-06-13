@@ -121,7 +121,7 @@ class Repositorio {
                 callback.onSuccessPost(arregloPosts)
             },
             { error ->
-
+                callback.onError()
             })
         addtoLista(request, context)
     }

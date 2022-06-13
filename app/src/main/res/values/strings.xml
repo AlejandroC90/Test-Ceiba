@@ -6,5 +6,7 @@
     <string name="please_wait">Please Wait...</string>
     <string name="empty_list">List is empty</string>
     <string name="posts">Posts:</string>
+    <string name="retry">Retry</string>
+    <string name="problem_ocurred">A problem has ocurred</string>
 
 </resources>

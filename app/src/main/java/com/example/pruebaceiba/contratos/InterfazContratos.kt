@@ -14,9 +14,10 @@ interface InterfazContratos {
     interface Vista {
         fun mostrarCargando()
         fun ocultarCargando()
-        fun mostrarUsuarios(usuarios: ArrayList<DTOUsuario>)
+        fun mostrarUsuarios(usuarios: ArrayList<DTOUsuario>, manejarBoton: Boolean)
         fun mostrarVacio()
         fun mostrarPosts(usuario: DTOUsuario, posts: ArrayList<DTOPost>)
+        fun mostrarErrorCarga(mostrarBoton: Boolean)
     }
 
     interface Presentador {

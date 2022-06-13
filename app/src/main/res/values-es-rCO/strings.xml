@@ -7,5 +7,7 @@
     <string name="please_wait">Por favor espere...</string>
     <string name="empty_list">La lista está vacía</string>
     <string name="posts">Publicaciones:</string>
+    <string name="retry">Retry</string>
+    <string name="problem_ocurred">Ha ocurrido un error</string>
 
 </resources>

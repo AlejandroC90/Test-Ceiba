@@ -18,6 +18,7 @@ import com.example.pruebaceiba.data.DTOPost
 import com.example.pruebaceiba.data.DTOUsuario
 import com.example.pruebaceiba.presentadores.MainPresenter
 import com.example.pruebaceiba.ui.AdapterUsuarios
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.io.Serializable
@@ -85,14 +86,21 @@ class MainActivity : AppCompatActivity(), InterfazContratos.Vista {
     }
 
     override fun ocultarCargando() {
-        dialog.hide()
+        if(dialog.isShowing){
+            dialog.hide()
+        }
     }
 
     /**
      * funcion que se llama cuando se termina de cargar de usuarios y los
      * muestra
      */
-    override fun mostrarUsuarios(usuarios: ArrayList<DTOUsuario>) {
+    override fun mostrarUsuarios(usuarios: ArrayList<DTOUsuario>, manejarBoton: Boolean) {
+        //ocultamos el boton de reintentar si hay usuarios
+        if(manejarBoton){
+            boton.visibility = View.GONE
+        }
+
         if(recyclearViewUsuarios.visibility.equals(View.INVISIBLE)){
             recyclearViewUsuarios.visibility = View.VISIBLE
             emptyList.visibility = View.INVISIBLE
@@ -116,5 +124,16 @@ class MainActivity : AppCompatActivity(), InterfazContratos.Vista {
             putSerializable("posts", posts as Serializable)
         }
         startActivity(Intent(this,ListadoPosts::class.java).putExtras(bundle))
+    }
+
+    override fun mostrarErrorCarga(mostrarBoton: Boolean) {
+        //mostramos el boton que permite recargar en el caso de que se produzca un error
+        if(mostrarBoton) boton.visibility = View.VISIBLE
+        //se muestra mensaje de error
+        mostrarSnackBar(resources.getString(R.string.problem_ocurred))
+    }
+
+    fun mostrarSnackBar(mensaje : String){
+        Snackbar.make(findViewById(R.id.constraint_main), mensaje, Snackbar.LENGTH_LONG).show()
     }
 }

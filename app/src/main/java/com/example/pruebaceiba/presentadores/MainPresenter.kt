@@ -26,10 +26,10 @@ class MainPresenter(_vista: InterfazContratos.Vista, context: Context) : Interfa
                 object : CallBackVolleyUsuarios {
                     override fun onSuccess(usuarios: ArrayList<DTOUsuario>) {
                         //se muestra la interfaz con los datos
-                        vista.mostrarUsuarios(usuarios)
+                        vista.mostrarUsuarios(usuarios, true)
                     }
                     override fun onError() {
-                        vista.ocultarCargando()
+                        vista.mostrarErrorCarga(true)
                     }
                 })
             vista.ocultarCargando()
@@ -37,6 +37,7 @@ class MainPresenter(_vista: InterfazContratos.Vista, context: Context) : Interfa
     }
 
     override fun consultarPostPorUsuario(context: Context, usuario: DTOUsuario) {
+
         println("presionaron boton en el listado ${usuario.id}")
         viewModelScope.launch{
             vista.mostrarCargando()
@@ -44,6 +45,10 @@ class MainPresenter(_vista: InterfazContratos.Vista, context: Context) : Interfa
                 override fun onSuccessPost( posts: ArrayList<DTOPost>) {
                     //se muestra la interfaz con los datos de los posts de un usuario
                     vista.mostrarPosts(usuario, posts)
+                }
+
+                override fun onError() {
+                    vista.mostrarErrorCarga(false)
                 }
             }, usuario)
             vista.ocultarCargando()
@@ -55,7 +60,7 @@ class MainPresenter(_vista: InterfazContratos.Vista, context: Context) : Interfa
         if(listado.isEmpty()){
             vista.mostrarVacio()
         }else{
-            vista.mostrarUsuarios(listado)
+            vista.mostrarUsuarios(listado, false)
 
         }
     }
